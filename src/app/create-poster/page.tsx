@@ -31,6 +31,8 @@ export default function CreatePosterPage() {
     party: '',
   });
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ai-poster-maker-backend.onrender.com/api';
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -67,7 +69,7 @@ export default function CreatePosterPage() {
         dataForm.append('image', selectedFile);
 
         try {
-          const res = await fetch('http://localhost:5000/api/upload', {
+          const res = await fetch(`${apiUrl}/upload`, {
             method: 'POST',
             body: dataForm,
           });
@@ -87,7 +89,7 @@ export default function CreatePosterPage() {
 
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
-      const response = await fetch('http://localhost:5000/api/posters', {
+      const response = await fetch(`${apiUrl}/posters`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -132,7 +134,6 @@ export default function CreatePosterPage() {
         allowTaint: true,
         logging: false,
         onclone: (clonedDoc) => {
-          // Remove all stylesheets to completely bypass external lab() color parsing crash
           const stylesheets = clonedDoc.querySelectorAll('link[rel="stylesheet"], style');
           stylesheets.forEach((sheet) => sheet.remove());
 
