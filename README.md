@@ -1,4 +1,4 @@
-vercel fullwesite(frontend/backend) linl- https://ai-poster-maker-frontend-nasp.vercel.app/
+vercel (frontend/backend) link- https://ai-poster-maker-frontend-nasp.vercel.app/
 
 # AI Political Poster Maker - Frontend
 
