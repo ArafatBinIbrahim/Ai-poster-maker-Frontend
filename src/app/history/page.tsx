@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { getUserPosters } from '../../services/posterService';
 
 interface Poster {
   _id: string;
@@ -36,14 +37,8 @@ export default function HistoryPage() {
           return;
         }
 
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-        const response = await fetch(`${apiUrl}/posters/user/${encodeURIComponent(userId)}`);
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch posters: ${response.status}`);
-        }
-        
-        const data = await response.json();
+        // Use centralized service which relies on the Axios API instance
+        const data = await getUserPosters(userId);
         setPosters(data.data || data);
       } catch (err: unknown) {
         if (err instanceof Error) {
