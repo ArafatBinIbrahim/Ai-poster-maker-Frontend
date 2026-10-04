@@ -31,8 +31,6 @@ export default function CreatePosterPage() {
     party: '',
   });
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ai-poster-maker-backend.onrender.com/api';
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -59,6 +57,8 @@ export default function CreatePosterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ai-poster-maker-backend.onrender.com/api';
 
     try {
       let finalPhotoUrl = uploadedPhotoUrl;
@@ -134,6 +134,7 @@ export default function CreatePosterPage() {
         allowTaint: true,
         logging: false,
         onclone: (clonedDoc) => {
+          // Remove all stylesheets to completely bypass external lab() color parsing crash
           const stylesheets = clonedDoc.querySelectorAll('link[rel="stylesheet"], style');
           stylesheets.forEach((sheet) => sheet.remove());
 
